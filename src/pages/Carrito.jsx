@@ -1,4 +1,6 @@
 
+import React from "react";
+
 function Carrito() {
     return (
         <main>
@@ -31,11 +33,8 @@ function Carrito() {
                     </div>
                 </div>
             </div>
-
-
-
         </main>
-    )
-}
+    );
+};
 
-export default Carrito
+export default Carrito;

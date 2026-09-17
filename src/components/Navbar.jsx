@@ -1,3 +1,6 @@
+
+import React from "react";
+
 function Navbar(){
     return(
     <>
@@ -47,7 +50,7 @@ function Navbar(){
         <li><a href="carrito.html">Carrito</a></li>
     </ul>
     </>
-    )
-}
+    );
+};
 
-export default Navbar
+export default Navbar;
