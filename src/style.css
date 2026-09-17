@@ -1,0 +1,80 @@
+body{
+    background-color: #FFF5E1;
+}
+
+.logo{
+    display: flex;
+    justify-content: left;
+    padding: 5px;
+    height: 70px;
+    width: 70px;
+}
+
+.footer-logo{
+    display: flex;
+    justify-content: left;
+    padding: 5px;
+    height: 170px;
+    width: 170px; 
+}
+
+  body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+
+.form-search{
+    display: flex !important;
+    justify-content: center !important;
+}
+
+.precio{
+  color: darkred;
+}
+
+.texto-slide{
+  text-shadow: #000000 1px 0 10px;
+}
+
+.texto-main{
+  display: flex;
+  justify-content: center;
+  color:rgb(60, 22, 22);
+}
+
+.text-categoria a{
+  text-decoration: none;
+  color:black;
+  transition: color 1s;
+  font-weight: bold;
+}
+
+.text-categoria a:hover{
+  color: rgb(187, 79, 193);
+}
+
+.boton-pagar a{
+  background-color: #8B4513;
+}
+
+.boton-continuar-compra a{
+  background-color: #8B4513;
+}
+
+.contenedor-btn button.btn.btn-success {
+  background-color: #8B4513;
+    
+}
+
+.col.s8.m4 a{
+  background-color: #8B4513;
+}
+
+.boton-slide{
+  background-color: #8B4513;
+}
