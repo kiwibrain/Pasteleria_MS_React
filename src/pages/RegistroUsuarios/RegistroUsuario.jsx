@@ -3,12 +3,6 @@ import React, { useState } from "react";
 
 function RegistroUsuario() {
 
-    // const [txtNombre, setTxtNombre] = useState('');
-    // const [txtApellido, setTxtApellido] = useState('');
-    // const [numEdad, setNumEdad] = useState(0);
-    // const [txtEmail, setTxtEmail] = useState('');
-    // const [txtPassword, setTxtPassword] = useState('')
-    // const [txtPassConfirm, setTxtPassConfirm] = useState('');
 
     const formikRegistro = useFormik({
         initialValues: {
