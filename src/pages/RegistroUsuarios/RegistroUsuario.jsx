@@ -1,6 +1,11 @@
 import React from "react";
 
 function RegistroUsuario() {
+
+    function almacenarVariables(){
+        console.log("Flag");
+    }
+
     return (
         <>
             <main>
@@ -67,7 +72,7 @@ function RegistroUsuario() {
                                 </div>
 
                                 <div className="col s12 m6 contenedor-btn">
-                                    <button type="submit" className="btn btn-success">Confirmar</button>
+                                    <button type="submit" className="btn btn-success" onClick={almacenarVariables}>Confirmar</button>
                                 </div>
 
                             </div>
