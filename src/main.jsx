@@ -15,8 +15,8 @@ import Carrito from './pages/Carrito/Carrito.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
-    {/* <RegistroUsuario/ > */}
+    {/* <App /> */}
+    <RegistroUsuario/ >
     {/* <Productos /> */}
     {/* <Producto /> */}
     {/* <InicioSesion /> */}
