@@ -8,6 +8,7 @@ import Productos from './pages/Productos/Productos.jsx'
 import Producto from './pages/Producto/Producto.jsx'
 import InicioSesion from './pages/InicioSesion/InicioSesion.jsx'
 import Carrito from './pages/Carrito/Carrito.jsx'
+import 'materialize-css/dist/css/materialize.min.css'
 
 // Deje comentados los elementos ya creados para ir probandolos uno a uno; dejando siempre 1 y solo 1 descomentado
 // Pueden borrar y dejar solo el inicial cuando estimen conveniente

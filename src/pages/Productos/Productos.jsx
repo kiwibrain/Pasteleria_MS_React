@@ -1,17 +1,411 @@
-import React from "react";
+import React, { useEffect } from 'react';
+import styles from './Productos.module.css';
 
-function Productos() {
-    return (
-        <>
-            <main>
-                <div className="container">
-                    <h2 className="center-align">Nuestros Productos</h2>
-                    <section id="productos">
-                    </section>
+// 1. Base de Datos de Productos
+const productosData = [
+  {
+    id: "TC001",
+    codigo: "TC001",
+    categoria: "Tortas Cuadradas",
+    titulo: "Torta Cuadrada de Chocolate",
+    imagen: "images/torta_chocolate_cuadrada.webp",
+    precio: 45000,
+    precio_formateado: "$45.000 CLP",
+    descripcion: "Deliciosa torta cuadrada de chocolate",
+    ingredientes: ["Harina", "Chocolate", "Huevos", "Azúcar", "Manteca", "Esencia de vainilla", "Crema"],
+    tiempo_preparacion: "60 min",
+    dificultad: "Media",
+    destacado: true
+  },
+  {
+    id: "TC002",
+    codigo: "TC002",
+    categoria: "Tortas Cuadradas",
+    titulo: "Torta Cuadrada de Frutas",
+    imagen: "images/torta_cuadrada_frutas.jpg",
+    precio: 50000,
+    precio_formateado: "$50.000 CLP",
+    descripcion: "Torta cuadrada con frutas frescas de temporada",
+    ingredientes: ["Harina", "Frutillas", "Arándanos", "Huevos", "Azúcar", "Manteca", "Crema"],
+    tiempo_preparacion: "50 min",
+    dificultad: "Media",
+    destacado: true
+  },
+  {
+    id: "TT001",
+    codigo: "TT001",
+    categoria: "Tortas Circulares",
+    titulo: "Torta Circular de Vainilla",
+    imagen: "images/torta_circular_vainilla.png",
+    precio: 40000,
+    precio_formateado: "$40.000 CLP",
+    descripcion: "Clásica torta circular de vainilla con frosting de mantequilla",
+    ingredientes: ["Harina", "Vainilla", "Huevos", "Azúcar", "Manteca", "Leche"],
+    tiempo_preparacion: "45 min",
+    dificultad: "Fácil",
+    destacado: false
+  },
+  {
+    id: "TT002",
+    codigo: "TT002",
+    categoria: "Tortas Circulares",
+    titulo: "Torta Circular de Manjar",
+    imagen: "images/torta_circular_manjar.jpg",
+    precio: 42000,
+    precio_formateado: "$42.000 CLP",
+    descripcion: "Torta circular rellena de manjar y cubierta con merengue",
+    ingredientes: ["Harina", "Manjar", "Huevos", "Azúcar", "Manteca", "Merengue"],
+    tiempo_preparacion: "55 min",
+    dificultad: "Media",
+    destacado: false
+  },
+  {
+    id: "PI001",
+    codigo: "PI001",
+    categoria: "Postres Individuales",
+    titulo: "Mousse de Chocolate",
+    imagen: "images/Mousse_de_Chocolate.webp",
+    precio: 5000,
+    precio_formateado: "$5.000 CLP",
+    descripcion: "Mousse de chocolate belga en porción individual",
+    ingredientes: ["Chocolate", "Crema", "Huevos", "Azúcar", "Mantequilla"],
+    tiempo_preparacion: "30 min",
+    dificultad: "Fácil",
+    destacado: false
+  },
+  {
+    id: "PI002",
+    codigo: "PI002",
+    categoria: "Postres Individuales",
+    titulo: "Tiramisú Clásico",
+    imagen: "images/tiramisu_clasico.webp",
+    precio: 5500,
+    precio_formateado: "$5.500 CLP",
+    descripcion: "Tiramisú italiano con café y mascarpone",
+    ingredientes: ["Mascarpone", "Café", "Huevos", "Azúcar", "Bizcochos", "Cacao"],
+    tiempo_preparacion: "40 min",
+    dificultad: "Media",
+    destacado: false
+  },
+  {
+    id: "PSA001",
+    codigo: "PSA001",
+    categoria: "Productos Sin Azúcar",
+    titulo: "Torta Sin Azúcar de Naranja",
+    imagen: "images/torta_de_naranja.png",
+    precio: 48000,
+    precio_formateado: "$48.000 CLP",
+    descripcion: "Torta de naranja endulzada naturally, sin azúcar añadida",
+    ingredientes: ["Harina integral", "Naranja", "Huevos", "Stevia", "Aceite de coco"],
+    tiempo_preparacion: "50 min",
+    dificultad: "Media",
+    destacado: false
+  },
+  {
+    id: "PSA002",
+    codigo: "PSA002",
+    categoria: "Productos Sin Azúcar",
+    titulo: "Cheesecake Sin Azúcar",
+    imagen: "images/cheese_cake.webp",
+    precio: 47000,
+    precio_formateado: "$47.000 CLP",
+    descripcion: "Cheesecake cremoso sin azúcar con base de frutos secos",
+    ingredientes: ["Queso crema", "Frutos secos", "Huevos", "Stevia", "Esencia de vainilla"],
+    tiempo_preparacion: "60 min",
+    dificultad: "Media",
+    destacado: false
+  },
+  {
+    id: "PT001",
+    codigo: "PT001",
+    categoria: "Pastelería Tradicional",
+    titulo: "Empanada de Manzana",
+    imagen: "images/empanada_manzana.jpg",
+    precio: 3000,
+    precio_formateado: "$3.000 CLP",
+    descripcion: "Empanada tradicional rellena de manzana y canela",
+    ingredientes: ["Harina", "Manzana", "Canela", "Azúcar", "Manteca"],
+    tiempo_preparacion: "35 min",
+    dificultad: "Fácil",
+    destacado: false
+  },
+  {
+    id: "PT002",
+    codigo: "PT002",
+    categoria: "Pastelería Tradicional",
+    titulo: "Tarta de Santiago",
+    imagen: "images/tarta_de_Santiago.jpg",
+    precio: 6000,
+    precio_formateado: "$6.000 CLP",
+    descripcion: "Tarta de Santiago, clásica de la repostería chilena",
+    ingredientes: ["Harina", "Almendras", "Huevos", "Azúcar", "Mermelada"],
+    tiempo_preparacion: "45 min",
+    dificultad: "Fácil",
+    destacado: false
+  },
+  {
+    id: "PG001",
+    codigo: "PG001",
+    categoria: "Productos Sin Gluten",
+    titulo: "Brownie Sin Gluten",
+    imagen: "images/Brownie_Sin_Gluten.jpg",
+    precio: 4000,
+    precio_formateado: "$4.000 CLP",
+    descripcion: "Brownie de chocolate sin gluten, húmedo y esponjoso",
+    ingredientes: ["Harina de arroz", "Chocolate", "Huevos", "Azúcar", "Manteca"],
+    tiempo_preparacion: "30 min",
+    dificultad: "Fácil",
+    destacado: false
+  },
+  {
+    id: "PG002",
+    codigo: "PG002",
+    categoria: "Productos Sin Gluten",
+    titulo: "Pan Sin Gluten",
+    imagen: "images/Pan_Sin_Gluten.jpg",
+    precio: 3500,
+    precio_formateado: "$3.500 CLP",
+    descripcion: "Pan artesanal sin gluten, suave y esponjoso",
+    ingredientes: ["Harina de arroz", "Maicena", "Huevos", "Levadura", "Aceite de oliva"],
+    tiempo_preparacion: "50 min",
+    dificultad: "Media",
+    destacado: false
+  },
+  {
+    id: "PV001",
+    codigo: "PV001",
+    categoria: "Productos Veganos",
+    titulo: "Torta Vegana de Chocolate",
+    imagen: "images/torta_vegana_de_chocolate.jpg",
+    precio: 50000,
+    precio_formateado: "$50.000 CLP",
+    descripcion: "Torta de chocolate 100% vegana, sin ingredientes de origen animal",
+    ingredientes: ["Harina", "Chocolate vegano", "Aceite de coco", "Leche de almendras", "Azúcar"],
+    tiempo_preparacion: "55 min",
+    dificultad: "Media",
+    destacado: true
+  },
+  {
+    id: "PV002",
+    codigo: "PV002",
+    categoria: "Productos Veganos",
+    titulo: "Galletas Veganas de Avena",
+    imagen: "images/Galletas_Veganas_de_Avena.jpg",
+    precio: 4500,
+    precio_formateado: "$4.500 CLP",
+    descripcion: "Galletas de avena veganas, crujientes y saludables",
+    ingredientes: ["Avena", "Plátano", "Aceite de coco", "Pasas", "Canela"],
+    tiempo_preparacion: "25 min",
+    dificultad: "Fácil",
+    destacado: false
+  },
+  {
+    id: "TE001",
+    codigo: "TE001",
+    categoria: "Tortas Especiales",
+    titulo: "Torta Especial de Cumpleaños",
+    imagen: "images/Torta_Especial_de_Cumpleaños.jpg",
+    precio: 55000,
+    precio_formateado: "$55.000 CLP",
+    descripcion: "Torta personalizada para cumpleaños, decorada a elección",
+    ingredientes: ["Harina", "Huevos", "Azúcar", "Manteca", "Crema", "Decoraciones"],
+    tiempo_preparacion: "90 min",
+    dificultad: "Alta",
+    destacado: true
+  },
+  {
+    id: "TE002",
+    codigo: "TE002",
+    categoria: "Tortas Especiales",
+    titulo: "Torta Especial de Boda",
+    imagen: "images/Torta_Especial_de_Boda.png",
+    precio: 60000,
+    precio_formateado: "$60.000 CLP",
+    descripcion: "Torta de boda de tres pisos, elegante y sofisticada",
+    ingredientes: ["Harina", "Huevos", "Azúcar", "Manteca", "Crema", "Flores comestibles"],
+    tiempo_preparacion: "120 min",
+    dificultad: "Alta",
+    destacado: true
+  }
+];
+
+const Productos = () => {
+  useEffect(() => {
+    // Inicializar Sidenav de Materialize
+    if (typeof window !== 'undefined' && window.M) {
+      const elemsSidenav = document.querySelectorAll('.sidenav');
+      window.M.Sidenav.init(elemsSidenav, {});
+    }
+  }, []);
+
+  // Función para redirigir a ver detalles
+  const verDetalles = (producto) => {
+    localStorage.setItem('productoActual', JSON.stringify(producto));
+    window.location.href = `producto.html?id=${producto.id}`;
+  };
+
+  // Función para guardar en el Carrito
+  const guardar = (producto) => {
+    const LLAVE = "carrito-pasteleria";
+    let carrito = JSON.parse(localStorage.getItem(LLAVE)) || [];
+
+    const existe = carrito.find(item => item.id === producto.id);
+    if (existe) {
+      existe.cantidad = (existe.cantidad || 1) + 1;
+    } else {
+      const nuevoProducto = { ...producto, cantidad: 1 };
+      carrito.push(nuevoProducto);
+    }
+
+    localStorage.setItem(LLAVE, JSON.stringify(carrito));
+
+    if (window.M && window.M.toast) {
+      window.M.toast({ html: `¡${producto.titulo} agregado al carrito!` });
+    } else {
+      alert(`¡${producto.titulo} agregado al carrito!`);
+    }
+  };
+
+  return (
+    <>
+      <header className="header">
+        <div className="navbar-fixed">
+          <nav>
+            <div className="nav-wrapper">
+              <a href="#" data-target="mobile-demo" className="sidenav-trigger">
+                <i className="material-icons">menu</i>
+              </a>
+              <ul id="nav-mobile-left" className="left hide-on-med-and-down">
+                <li>
+                  <div className="logo">
+                    <img src="images/pasteleria_logo_transparent.png" alt="Logo" />
+                  </div>
+                </li>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="productos.html">Productos</a></li>
+                <li><a href="#">Nosotros</a></li>
+                <li><a href="#">Contacto</a></li>
+              </ul>
+
+              <ul id="nav-mobile-right" className="right hide-on-med-and-down">
+                <li><a href="carrito.html">Carrito</a></li>
+                <li><a href="inicioSesion.html">Iniciar Sesión</a></li>
+                <li><a href="registroUsuario.html">Registrarse</a></li>
+                <li>
+                  <form className="form-search">
+                    <div className="input-field">
+                      <input id="search" type="search" required />
+                      <label className="label-icon" htmlFor="search">
+                        <i className="medium material-icons left">search</i>
+                      </label>
+                      <i className="material-icons">close</i>
+                    </div>
+                  </form>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </header>
+
+      <ul className="sidenav" id="mobile-demo">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="productos.html">Productos</a></li>
+        <li><a href="#">Nosotros</a></li>
+        <li><a href="#">Contacto</a></li>
+        <li><a href="carrito.html">Carrito</a></li>
+      </ul>
+
+      <main>
+        <div className="container">
+          <h2 className="center-align">Nuestros Productos</h2>
+          <section id="productos">
+            <div className="row">
+              {productosData.map((producto) => (
+                <div key={producto.id} className="col s12 m6 l4">
+                  <div className="card hoverable">
+                    <div className="card-image">
+                      <img
+                        src={producto.imagen}
+                        alt={producto.titulo}
+                        loading="lazy"
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = 'images/placeholder.webp';
+                        }}
+                      />
+                      <span className="badge-categoria">{producto.categoria}</span>
+                      <span className="card-title">{producto.titulo}</span>
+                    </div>
+
+                    <div className="card-content">
+                      <p className="codigo-producto">Código: {producto.codigo}</p>
+                      <p className="descripcion-producto">{producto.descripcion}</p>
+                      <p className="precio-producto">{producto.precio_formateado}</p>
+                    </div>
+
+                    <div className="card-action">
+                      <a
+                        href="#!"
+                        className="waves-effect waves-light btn pink darken-1"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          verDetalles(producto);
+                        }}
+                      >
+                        Detalles
+                      </a>
+                      <a
+                        href="#!"
+                        className="right waves-effect waves-light light-blue lighten-5 black-text btn btn-agregar"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          guardar(producto);
+                        }}
+                      >
+                        Agregar
+                      </a>
+                    </div>
+                  </div>
                 </div>
-            </main>
-        </>
-    );
+              ))}
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <footer className="page-footer">
+        <div className="container">
+          <div className="row">
+            <div className="col l6 s12">
+              <div className="footer-logo">
+                <img src="images/pasteleria_logo_transparent.png" alt="logo" />
+              </div>
+              <p className="grey-text text-lighten-4">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt odit eligendi cupiditate numquam ipsa.
+              </p>
+            </div>
+            <div className="col l4 offset-l2 s12">
+              <h5 className="white-text">Informaciones</h5>
+              <ul>
+                <li><a className="grey-text text-lighten-3" href="#!">Términos de Servicio</a></li>
+                <li><a className="grey-text text-lighten-3" href="#!">Políticas de Reembolso</a></li>
+                <li><a className="grey-text text-lighten-3" href="#!">Contacto</a></li>
+                <li><a className="grey-text text-lighten-3" href="#!">WhatsApp</a></li>
+                <li><a className="grey-text text-lighten-3" href="#!">Instagram</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div className="footer-copyright">
+          <div className="container">
+            © 2026 Pastelería Mil Sabores
+            <a className="grey-text text-lighten-4 right" href="#!">More Links</a>
+          </div>
+        </div>
+      </footer>
+    </>
+  );
 };
 
 export default Productos;
