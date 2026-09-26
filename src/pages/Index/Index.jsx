@@ -1,8 +1,8 @@
-import React from 'react';
-import Navbar from '../components/Navbar';
-import Slider from '../components/Slider';
-import Categorias from '../components/Categorias';
-import Footer from '../components/Footer';
+import React from "react";
+import Navbar from "../../components/Navbar.jsx";
+import Slider from "../../components/Slider.jsx";
+import Categorias from "../../components/Categorias.jsx";
+import Footer from "../../components/Footer.jsx";
 
 const Index = () => {
   return (
