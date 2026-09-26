@@ -1,56 +1,65 @@
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import M from 'materialize-css';
 
-import React from "react";
+const Navbar = () => {
+  useEffect(() => {
+    const sidenav = document.querySelectorAll('.sidenav');
+    M.Sidenav.init(sidenav);
+  }, []);
 
-function Navbar(){
-    return(
+  return (
     <>
-        <header className="header">
+      <header className="header">
         <div className="navbar-fixed">
-            <nav>
-                <div className="nav-wrapper">
-                    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i className="material-icons">menu</i></a>
-                    <ul id="nav-mobile" className="left hide-on-med-and-down">
-                        <li>
-                            <div className="logo"><img src="images/pasteleria_logo_transparent.png" alt="Logo"/></div>
-                        </li>
-                        <li><a href="index.html">Inicio</a></li>
-                        <li><a href="productos.html">Productos</a></li>
-                        <li><a href="#">Nosotros</a></li>
-                        <li><a href="#">Contacto</a></li>
-                    </ul>
+          <nav>
+            <div className="nav-wrapper">
+              <a href="#" data-target="mobile-demo" className="sidenav-trigger">
+                <i className="material-icons">menu</i>
+              </a>
 
-                    <ul id="nav-mobile" className="right hide-on-med-and-down">
-                        <li><a href="carrito.html">Carrito</a></li>
-                        <li><a href="inicioSesion.html">Iniciar Sesión</a></li>
-                        <li><a href="registroUsuario.html">Registrarse</a></li>
-                        <li>
-                            <form className="form-search">
-                                <div className="input-field">
+              <ul className="left hide-on-med-and-down">
+                <li>
+                  <div className="logo">
+                    <img src="/images/pasteleria_logo_transparent.png" alt="Logo" />
+                  </div>
+                </li>
+                <li><Link to="/">Inicio</Link></li>
+                <li><Link to="/productos">Productos</Link></li>
+                <li><a href="#">Nosotros</a></li>
+                <li><a href="#">Contacto</a></li>
+              </ul>
 
-                                    <input id="search" type="search" required/>
-                                    <label className="label-icon" for="search"><i
-                                            className="medium material-icons left">search</i></label>
-                                    <i className="material-icons">close</i>
-
-                                </div>
-                            </form>
-                        </li>
-                    </ul>
-
-
-                </div>
-            </nav>
+              <ul className="right hide-on-med-and-down">
+                <li><Link to="/carrito">Carrito</Link></li>
+                <li><Link to="/inicioSesion">Iniciar Sesión</Link></li>
+                <li><Link to="/registroUsuario">Registrarse</Link></li>
+                <li>
+                  <form className="form-search">
+                    <div className="input-field">
+                      <input id="search" type="search" required />
+                      <label className="label-icon" htmlFor="search">
+                        <i className="medium material-icons left">search</i>
+                      </label>
+                      <i className="material-icons">close</i>
+                    </div>
+                  </form>
+                </li>
+              </ul>
+            </div>
+          </nav>
         </div>
-    </header>
-    <ul className="sidenav" id="mobile-demo">
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="productos.html">Productos</a></li>
+      </header>
+
+      <ul className="sidenav" id="mobile-demo">
+        <li><Link to="/">Inicio</Link></li>
+        <li><Link to="/productos">Productos</Link></li>
         <li><a href="#">Nosotros</a></li>
         <li><a href="#">Contacto</a></li>
-        <li><a href="carrito.html">Carrito</a></li>
-    </ul>
+        <li><Link to="/carrito">Carrito</Link></li>
+      </ul>
     </>
-    );
+  );
 };
 
 export default Navbar;
