@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import M from 'materialize-css';
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import M from "materialize-css";
 
 const Navbar = () => {
   useEffect(() => {
-    const sidenav = document.querySelectorAll('.sidenav');
+    const sidenav = document.querySelectorAll(".sidenav");
     M.Sidenav.init(sidenav);
   }, []);
 
@@ -32,8 +32,8 @@ const Navbar = () => {
 
               <ul className="right hide-on-med-and-down">
                 <li><Link to="/carrito">Carrito</Link></li>
-                <li><Link to="/inicioSesion">Iniciar Sesión</Link></li>
-                <li><Link to="/registroUsuario">Registrarse</Link></li>
+                <li><Link to="/inicio-sesion">Iniciar Sesión</Link></li>
+                <li><Link to="/registro">Registrarse</Link></li>
                 <li>
                   <form className="form-search">
                     <div className="input-field">
@@ -57,6 +57,8 @@ const Navbar = () => {
         <li><a href="#">Nosotros</a></li>
         <li><a href="#">Contacto</a></li>
         <li><Link to="/carrito">Carrito</Link></li>
+        <li><Link to="/inicio-sesion">Iniciar Sesión</Link></li>
+        <li><Link to="/registro">Registrarse</Link></li>
       </ul>
     </>
   );
