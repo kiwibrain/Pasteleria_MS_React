@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer';
 import styles from './Productos.module.css';
 
-// 1. Base de Datos de Productos
 const productosData = [
   {
     id: "TC001",
@@ -95,7 +97,7 @@ const productosData = [
     imagen: "images/torta_de_naranja.png",
     precio: 48000,
     precio_formateado: "$48.000 CLP",
-    descripcion: "Torta de naranja endulzada naturally, sin azúcar añadida",
+    descripcion: "Torta de naranja endulzada naturalmente, sin azúcar añadida",
     ingredientes: ["Harina integral", "Naranja", "Huevos", "Stevia", "Aceite de coco"],
     tiempo_preparacion: "50 min",
     dificultad: "Media",
@@ -230,21 +232,20 @@ const productosData = [
 ];
 
 const Productos = () => {
+  const navigate = useNavigate();
+
   useEffect(() => {
-    // Inicializar Sidenav de Materialize
     if (typeof window !== 'undefined' && window.M) {
       const elemsSidenav = document.querySelectorAll('.sidenav');
       window.M.Sidenav.init(elemsSidenav, {});
     }
   }, []);
 
-  // Función para redirigir a ver detalles
   const verDetalles = (producto) => {
     localStorage.setItem('productoActual', JSON.stringify(producto));
-    window.location.href = `producto.html?id=${producto.id}`;
+    navigate(`/producto?id=${producto.id}`);
   };
 
-  // Función para guardar en el Carrito
   const guardar = (producto) => {
     const LLAVE = "carrito-pasteleria";
     let carrito = JSON.parse(localStorage.getItem(LLAVE)) || [];
@@ -268,53 +269,7 @@ const Productos = () => {
 
   return (
     <>
-      <header className="header">
-        <div className="navbar-fixed">
-          <nav>
-            <div className="nav-wrapper">
-              <a href="#" data-target="mobile-demo" className="sidenav-trigger">
-                <i className="material-icons">menu</i>
-              </a>
-              <ul id="nav-mobile-left" className="left hide-on-med-and-down">
-                <li>
-                  <div className="logo">
-                    <img src="images/pasteleria_logo_transparent.png" alt="Logo" />
-                  </div>
-                </li>
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="productos.html">Productos</a></li>
-                <li><a href="#">Nosotros</a></li>
-                <li><a href="#">Contacto</a></li>
-              </ul>
-
-              <ul id="nav-mobile-right" className="right hide-on-med-and-down">
-                <li><a href="carrito.html">Carrito</a></li>
-                <li><a href="inicioSesion.html">Iniciar Sesión</a></li>
-                <li><a href="registroUsuario.html">Registrarse</a></li>
-                <li>
-                  <form className="form-search">
-                    <div className="input-field">
-                      <input id="search" type="search" required />
-                      <label className="label-icon" htmlFor="search">
-                        <i className="medium material-icons left">search</i>
-                      </label>
-                      <i className="material-icons">close</i>
-                    </div>
-                  </form>
-                </li>
-              </ul>
-            </div>
-          </nav>
-        </div>
-      </header>
-
-      <ul className="sidenav" id="mobile-demo">
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="productos.html">Productos</a></li>
-        <li><a href="#">Nosotros</a></li>
-        <li><a href="#">Contacto</a></li>
-        <li><a href="carrito.html">Carrito</a></li>
-      </ul>
+      <Navbar />
 
       <main>
         <div className="container">
@@ -374,36 +329,7 @@ const Productos = () => {
         </div>
       </main>
 
-      <footer className="page-footer">
-        <div className="container">
-          <div className="row">
-            <div className="col l6 s12">
-              <div className="footer-logo">
-                <img src="images/pasteleria_logo_transparent.png" alt="logo" />
-              </div>
-              <p className="grey-text text-lighten-4">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt odit eligendi cupiditate numquam ipsa.
-              </p>
-            </div>
-            <div className="col l4 offset-l2 s12">
-              <h5 className="white-text">Informaciones</h5>
-              <ul>
-                <li><a className="grey-text text-lighten-3" href="#!">Términos de Servicio</a></li>
-                <li><a className="grey-text text-lighten-3" href="#!">Políticas de Reembolso</a></li>
-                <li><a className="grey-text text-lighten-3" href="#!">Contacto</a></li>
-                <li><a className="grey-text text-lighten-3" href="#!">WhatsApp</a></li>
-                <li><a className="grey-text text-lighten-3" href="#!">Instagram</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div className="footer-copyright">
-          <div className="container">
-            © 2026 Pastelería Mil Sabores
-            <a className="grey-text text-lighten-4 right" href="#!">More Links</a>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 };
