@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer';
 
 function InicioSesion() {
     return (
         <>
+            <Navbar />
             <main>
                 <section id="formulario">
                     <div className="container">
@@ -37,6 +41,7 @@ function InicioSesion() {
                     </div>
                 </section>
             </main>
+            <Footer />
         </>
     );
 };
