@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
-import styles from './Productos.module.css';
+import estilo from './Productos.module.css';
 
 const productosData = [
   {
@@ -274,7 +274,7 @@ const Productos = () => {
       <main>
         <div className="container">
           <h2 className="center-align">Nuestros Productos</h2>
-          <section id="productos">
+          <section id="productos" className={estilo.seccionProductos}>
             <div className="row">
               {productosData.map((producto) => (
                 <div key={producto.id} className="col s12 m6 l4">
@@ -289,14 +289,14 @@ const Productos = () => {
                           e.target.src = 'images/placeholder.webp';
                         }}
                       />
-                      <span className="badge-categoria">{producto.categoria}</span>
+                      <span className={estilo.badgeCategoria}>{producto.categoria}</span>
                       <span className="card-title">{producto.titulo}</span>
                     </div>
 
                     <div className="card-content">
-                      <p className="codigo-producto">Código: {producto.codigo}</p>
-                      <p className="descripcion-producto">{producto.descripcion}</p>
-                      <p className="precio-producto">{producto.precio_formateado}</p>
+                      <p className={estilo.codigoProducto}>Código: {producto.codigo}</p>
+                      <p className={estilo.descripcionProducto}>{producto.descripcion}</p>
+                      <p className={estilo.precioProducto}>{producto.precio_formateado}</p>
                     </div>
 
                     <div className="card-action">
