@@ -43,6 +43,7 @@
     color: #666 !important;
     margin: 8px 0 !important;
     display: -webkit-box !important;
+    line-clamp: 2 !important;
     -webkit-line-clamp: 2 !important;
     -webkit-box-orient: vertical !important;
     overflow: hidden !important;
