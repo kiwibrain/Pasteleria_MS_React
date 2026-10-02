@@ -1,0 +1,23 @@
+.precio {
+    color: darkred !important;
+    font-weight: bold;
+}
+
+:global(.collapsible) {
+    border-top: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    margin: 0.5rem 0 1rem 0;
+}
+
+:global(.collapsible-header) {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    font-weight: 500;
+}
+
+:global(.collapsible-body) {
+    padding: 15px;
+    background-color: #fff;
+}
