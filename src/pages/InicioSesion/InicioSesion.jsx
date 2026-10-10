@@ -6,27 +6,27 @@ import Alerta from '../../components/Alerta';
 
 function InicioSesion() {
 
-//Variables sueltas
-const regexEmail = new RegExp(".*@(gmail.com|profesor.duoc.cl|duoc.cl)");
+    //Variables sueltas
+    const regexEmail = new RegExp(".*@(gmail.com|profesor.duoc.cl|duoc.cl)");
 
-//Objetos Hook useState
-const [inputEmail, setInputEmail] = useState("");
-const [inputPass, setInputPass] = useState("");
+    //Objetos Hook useState
+    const [inputEmail, setInputEmail] = useState("");
+    const [inputPass, setInputPass] = useState("");
 
-const [alertas, setAlertas] = useState([]);
-const [tipoAlerta, setTipoAlerta] = useState('');
+    const [alertas, setAlertas] = useState([]);
+    const [tipoAlerta, setTipoAlerta] = useState('');
 
-//Funciones
-function validarCampos(){
-    let mensajesErrores = [];
-    if( inputEmail.trim()=="" ) { mensajesErrores.push(`Email vacio`); }
-    if( !regexEmail.test(inputEmail) ) { mensajesErrores.push(`Formato email incorrecto`); }
-    if( inputPass.trim()=="" ) { mensajesErrores.push(`Contraseña vacia`); }
-    //TODO: revisar par credenciales en local storage
+    //Funciones
+    function validarCampos(){
+        let mensajesErrores = [];
+        if( inputEmail.trim()=="" ) { mensajesErrores.push(`Email vacio`); }
+        if( !regexEmail.test(inputEmail) ) { mensajesErrores.push(`Formato email incorrecto`); }
+        if( inputPass.trim()=="" ) { mensajesErrores.push(`Contraseña vacia`); }
+        //TODO: revisar par credenciales en local storage
 
-    setAlertas( (mensajesErrores.length>0 ? mensajesErrores : [`Inicio sesión correcto`]) )
-    setTipoAlerta( (mensajesErrores.length>0 ? `error` : `success`) )
-}
+        setAlertas( (mensajesErrores.length>0 ? mensajesErrores : [`Inicio sesión correcto`]) )
+        setTipoAlerta( (mensajesErrores.length>0 ? `error` : `success`) )
+    }
 
     return (
         <>
@@ -56,21 +56,19 @@ function validarCampos(){
                                     </div>
                                 </div>
 
-
                                 <div className="col s12 m6 contenedor-btn">
                                     <button type="submit" className="btn btn-success" onClick={validarCampos}>Ingresar</button>
                                 </div>
 
-
                             </div>
                         </form>
-
                     </div>
                 </section>
             </main>
+
             <Footer />
         </>
     );
-};
+}
 
 export default InicioSesion;
