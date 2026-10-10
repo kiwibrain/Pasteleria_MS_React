@@ -5,6 +5,7 @@ import Index from "./pages/Index/Index.jsx";
 import Producto from "./pages/Producto/Producto";
 import Productos from "./pages/Productos/Productos";
 import RegistroUsuario from "./pages/RegistroUsuarios/RegistroUsuario";
+import Nosotros from "./pages/Nosotros/Nosotros.jsx";
 
 export const routes = createBrowserRouter([
   {
@@ -31,4 +32,8 @@ export const routes = createBrowserRouter([
     path: "/registro",
     element: <RegistroUsuario />,
   },
+  {
+    path: "/nosotros",
+    element: <Nosotros/>,
+  }
 ]);
