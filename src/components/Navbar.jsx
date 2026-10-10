@@ -1,8 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import M from "materialize-css";
 
 const Navbar = () => {
+
+  const [elementoUsuario, setElementoUsuario] = useState( JSON.parse(localStorage.getItem("UsuarioActivo")).nombre || "");
+
+  function cerrarSesion(){
+    localStorage.setItem("UsuarioActivo", JSON.stringify(""));
+    setElementoUsuario("");
+  }
+
   useEffect(() => {
     const sidenav = document.querySelectorAll(".sidenav");
     M.Sidenav.init(sidenav);
@@ -32,8 +40,10 @@ const Navbar = () => {
 
               <ul className="right hide-on-med-and-down">
                 <li><Link to="/carrito">Carrito</Link></li>
-                <li><Link to="/inicio-sesion">Iniciar Sesión</Link></li>
-                <li><Link to="/registro">Registrarse</Link></li>
+                <li hidden={ elementoUsuario!=="" }><Link to="/inicio-sesion">Iniciar Sesión</Link></li>
+                <li hidden={ elementoUsuario!=="" }><Link to="/registro">Registrarse</Link></li>
+                <li hidden={ elementoUsuario==="" }>--Aqui deberia ir nombre usuario--</li>
+                <li hidden={ elementoUsuario==="" }> <button className="btn btn-info" onClick={cerrarSesion}>Cerrar Sesion</button> </li>
                 <li>
                   <form className="form-search">
                     <div className="input-field">

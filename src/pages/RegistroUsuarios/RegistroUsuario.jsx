@@ -4,6 +4,12 @@ import Footer from '../../components/Footer';
 import Alerta from '../../components/Alerta'; // Importamos la alerta reutilizable
 
 const RegistroUsuario = () => {
+
+
+    // const [listaUsuarios, setListaUsuarios] = useState( JSON.parse(localStorage.getItem("Usuarios")) || [] );
+    const arrayUsuarios = JSON.parse(localStorage.getItem("Usuarios")) || [];
+    const [esValidoRegistro, setEsValidoRegistro] = useState(false);
+
   // Estado para capturar los datos del formulario
   const [formData, setFormData] = useState({
     nombre: '',
@@ -69,17 +75,27 @@ const RegistroUsuario = () => {
       
       // Opcional: Mantener el Toast de Materialize como extra
       if (window.M) window.M.toast({ html: mensajesErrores.join(' / ') });
+      setEsValidoRegistro(false);
     } else {
       setAlertas([`Usuario ${formData.nombre} registrado correctamente`]);
       setTipoAlerta('success');
       
       // Opcional: Mantener el Toast de Materialize
       if (window.M) window.M.toast({ html: "Registrado usuario " + formData.nombre });
+      setEsValidoRegistro(true);
       
       // Aquí podrías limpiar el formulario si lo deseas:
       // setFormData({ nombre: '', apellido: '', edad: '', email: '', password: '', passConfirm: '' });
     }
   };
+
+  function registrarUsuarioLocalStorage(){
+    console.log(`formData:: ${typeof( JSON.stringify(formData) )} - ${ JSON.stringify(formData) }`);
+    console.log('formData:: ' + typeof( JSON.stringify(formData) ) + ' - ' + JSON.stringify(formData) );
+    console.log(`listaUsuarios:: ${typeof( arrayUsuarios )} - ${ JSON.stringify(arrayUsuarios) }`);
+    arrayUsuarios.push(formData);
+    localStorage.setItem("Usuarios", JSON.stringify(arrayUsuarios));
+  }
 
   return (
     <>
@@ -181,7 +197,13 @@ const RegistroUsuario = () => {
 
                 <div className="col s12 m12 contenedor-btn" style={{ marginTop: '20px' }}>
                   <button type="submit" className="btn btn btn-success">
-                    Confirmar
+                    Validar
+                  </button>
+                </div>
+                <div className="col s12 m12 contenedor-btn" style={{ marginTop: '20px' }}>
+                  <button type="button" className="btn btn btn-info"
+                        onClick={registrarUsuarioLocalStorage} disabled={!esValidoRegistro}>
+                    Registrar
                   </button>
                 </div>
               </div>
