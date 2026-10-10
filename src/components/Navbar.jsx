@@ -55,7 +55,7 @@ const Navbar = () => {
         <li><Link to="/">Inicio</Link></li>
         <li><Link to="/productos">Productos</Link></li>
         <li><a href="/nosotros">Nosotros</a></li>
-        <li><a href="#">Contacto</a></li>
+        <li><a href="/contacto">Contacto</a></li>
         <li><Link to="/carrito">Carrito</Link></li>
         <li><Link to="/inicio-sesion">Iniciar Sesión</Link></li>
         <li><Link to="/registro">Registrarse</Link></li>
