@@ -1,93 +1,198 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import Alerta from '../../components/Alerta'; // Importamos la alerta reutilizable
 
-function RegistroUsuario() {
+const RegistroUsuario = () => {
+  // Estado para capturar los datos del formulario
+  const [formData, setFormData] = useState({
+    nombre: '',
+    apellido: '',
+    edad: '',
+    email: '',
+    password: '',
+    passConfirm: ''
+  });
 
-    function almacenarVariables(){
-        console.log("Flag");
+  // Estado para las alertas
+  const [alertas, setAlertas] = useState([]);
+  const [tipoAlerta, setTipoAlerta] = useState(''); // 'error' o 'success'
+
+  // Manejador de cambios en los inputs
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  // Función de validación (traducida de tu JS original)
+  const intentarRegistrarUsuario = (e) => {
+    e.preventDefault(); // Evita que la página se recargue
+    let mensajesErrores = [];
+    const regexEmail = new RegExp(".*@(gmail.com|profesor.duoc.cl|duoc.cl)");
+
+    if (!formData.nombre) {
+      mensajesErrores.push("Nombre requerido");
+    } else if (formData.nombre.length > 100) {
+      mensajesErrores.push("Nombre demasiado largo");
     }
 
-    return (
-        <>
-            <Navbar />
-            <main>
-                <section id="formulario">
-                    <div className="container">
-                        <h3>Registrarse</h3>
+    if (!formData.apellido) {
+      mensajesErrores.push("Apellido requerido");
+    } else if (formData.apellido.length > 100) {
+      mensajesErrores.push("Apellido demasiado largo");
+    }
 
-                        <form id="formularioRegistro" action="#">
-                            <div className="row">
-                                <div className="col s12 m6">
-                                    <div className="contenedor-input">
-                                        <label for="txtNombre">Nombre(s):</label>
-                                        <input id="txtNombre" className="form-control" type="text"
-                                            placeholder="Ingrese su nombre" max="100"
-                                            required/>
-                                    </div>
-                                </div>
+    if (!formData.edad || formData.edad <= 0 || formData.edad > 110) {
+      mensajesErrores.push("Edad no aceptada");
+    }
 
-                                <div className="col s12 m6">
-                                    <div className="contenedor-input">
-                                        <label for="txtApellido">Apellido(s):</label>
-                                        <input id="txtApellido" className="form-control" type="text"
-                                            placeholder="Ingrese su apellido" max="100"
-                                            required/>
-                                    </div>
-                                </div>
+    if (!formData.email) {
+      mensajesErrores.push("Email requerido");
+    } else if (!regexEmail.test(formData.email)) {
+      mensajesErrores.push("Email no aceptado (debe ser @gmail.com, @profesor.duoc.cl o @duoc.cl)");
+    }
 
-                                <div className="col s12 m6">
-                                    <div className="contenedor-input">
-                                        <label for="numEdad">Edad:</label>
-                                        <input id="numEdad" className="form-control" type="number"
-                                            placeholder="Ingrese su edad" min="0" max="110"
-                                            required/>
-                                    </div>
-                                </div>
+    if (formData.password.length < 4 || formData.password.length > 10) {
+      mensajesErrores.push("La contraseña debe tener entre 4 y 10 caracteres");
+    }
 
-                                <div className="col s12 m6">
-                                    <div className="contenedor-input">
-                                        <label for="txtEmail">Email:</label>
-                                        <input id="txtEmail" className="form-control" type="email"
-                                            placeholder="Ingrese su email" max="100"
-                                            pattern=".*@(gmail.com|profesor.duoc.cl|duoc.cl)"
-                                            required/>
+    if (formData.password !== formData.passConfirm) {
+      mensajesErrores.push("La contraseña es diferente en ambos campos");
+    }
 
-                                    </div>
-                                </div>
+    // Lógica para mostrar errores o éxito
+    if (mensajesErrores.length > 0) {
+      setAlertas(mensajesErrores);
+      setTipoAlerta('error');
+      
+      // Opcional: Mantener el Toast de Materialize como extra
+      if (window.M) window.M.toast({ html: mensajesErrores.join(' / ') });
+    } else {
+      setAlertas([`Usuario ${formData.nombre} registrado correctamente`]);
+      setTipoAlerta('success');
+      
+      // Opcional: Mantener el Toast de Materialize
+      if (window.M) window.M.toast({ html: "Registrado usuario " + formData.nombre });
+      
+      // Aquí podrías limpiar el formulario si lo deseas:
+      // setFormData({ nombre: '', apellido: '', edad: '', email: '', password: '', passConfirm: '' });
+    }
+  };
 
-                                <div className="col s12 m6">
-                                    <div className="contenedor-input">
-                                        <label for="txtPassword">Contraseña:</label>
-                                        <input id="txtPassword" className="form-control" type="password"
-                                            placeholder="Ingrese una contraseña" min="4" max="10"
-                                            required/>
-                                    </div>
-                                </div>
+  return (
+    <>
+      <Navbar />
 
-                                <div className="col s12 m6">
-                                    <div className="contenedor-input">
-                                        <label for="txtPassConfirm">Confirme Contraseña:</label>
-                                        <input id="txtPassConfirm" className="form-control" type="password"
-                                            placeholder="Ingrese su contraseña nuevamente" min="8"
-                                            required/>
-                                    </div>
-                                </div>
+      <main>
+        <section id="formulario">
+          <div className="container" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
+            <h3>Registrarse</h3>
 
-                                <div className="col s12 m6 contenedor-btn">
-                                    <button type="submit" className="btn btn-success" onClick={almacenarVariables}>Confirmar</button>
-                                </div>
+            {/* Aquí inyectamos el componente reutilizable de Alerta */}
+            <Alerta mensajes={alertas} tipo={tipoAlerta} />
 
-                            </div>
-                        </form>
+            <form id="formularioRegistro" onSubmit={intentarRegistrarUsuario}>
+              <div className="row">
+                <div className="col s12 m6">
+                  <div className="input-field">
+                    <label htmlFor="txtNombre">Nombre(s):</label>
+                    <input
+                      id="txtNombre"
+                      name="nombre"
+                      type="text"
+                      className="validate"
+                      value={formData.nombre}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
 
-                    </div>
-                </section>
-            </main>
-            <Footer />
-        </>
-    );
+                <div className="col s12 m6">
+                  <div className="input-field">
+                    <label htmlFor="txtApellido">Apellido(s):</label>
+                    <input
+                      id="txtApellido"
+                      name="apellido"
+                      type="text"
+                      className="validate"
+                      value={formData.apellido}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+
+                <div className="col s12 m6">
+                  <div className="input-field">
+                    <label htmlFor="numEdad">Edad:</label>
+                    <input
+                      id="numEdad"
+                      name="edad"
+                      type="number"
+                      className="validate"
+                      value={formData.edad}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+
+                <div className="col s12 m6">
+                  <div className="input-field">
+                    <label htmlFor="txtEmail">Email:</label>
+                    <input
+                      id="txtEmail"
+                      name="email"
+                      type="email"
+                      className="validate"
+                      value={formData.email}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+
+                <div className="col s12 m6">
+                  <div className="input-field">
+                    <label htmlFor="txtPassword">Contraseña:</label>
+                    <input
+                      id="txtPassword"
+                      name="password"
+                      type="password"
+                      className="validate"
+                      value={formData.password}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+
+                <div className="col s12 m6">
+                  <div className="input-field">
+                    <label htmlFor="txtPassConfirm">Confirme Contraseña:</label>
+                    <input
+                      id="txtPassConfirm"
+                      name="passConfirm"
+                      type="password"
+                      className="validate"
+                      value={formData.passConfirm}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+
+                <div className="col s12 m12 contenedor-btn" style={{ marginTop: '20px' }}>
+                  <button type="submit" className="btn waves-effect waves-light green">
+                    Confirmar
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </section>
+      </main>
+
+      <Footer />
+    </>
+  );
 };
 
 export default RegistroUsuario;
