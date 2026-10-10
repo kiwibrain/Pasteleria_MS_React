@@ -27,7 +27,7 @@ const Navbar = () => {
                 <li><Link to="/">Inicio</Link></li>
                 <li><Link to="/productos">Productos</Link></li>
                 <li><a href="/nosotros">Nosotros</a></li>
-                <li><a href="#">Contacto</a></li>
+                <li><a href="/contacto">Contacto</a></li>
               </ul>
 
               <ul className="right hide-on-med-and-down">

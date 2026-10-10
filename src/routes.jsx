@@ -35,5 +35,9 @@ export const routes = createBrowserRouter([
   {
     path: "/nosotros",
     element: <Nosotros/>,
+  },
+  {
+    path: "/contacto",
+    element: <Contacto/>,
   }
 ]);
