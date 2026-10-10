@@ -6,6 +6,7 @@ import Producto from "./pages/Producto/Producto";
 import Productos from "./pages/Productos/Productos";
 import RegistroUsuario from "./pages/RegistroUsuarios/RegistroUsuario";
 import Nosotros from "./pages/Nosotros/Nosotros.jsx";
+import Contacto from "./pages/Contacto/Contacto.jsx";
 
 export const routes = createBrowserRouter([
   {

@@ -180,7 +180,7 @@ const RegistroUsuario = () => {
                 </div>
 
                 <div className="col s12 m12 contenedor-btn" style={{ marginTop: '20px' }}>
-                  <button type="submit" className="btn waves-effect waves-light green">
+                  <button type="submit" className="btn btn btn-success">
                     Confirmar
                   </button>
                 </div>
