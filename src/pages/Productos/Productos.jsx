@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import estilo from './Productos.module.css';
 
-const productosData = [
+const productosIniciales = [
   {
     id: "TC001",
     codigo: "TC001",
@@ -234,6 +234,31 @@ const productosData = [
 const Productos = () => {
   const navigate = useNavigate();
 
+  //para leer el inventario desde local storage, permite comunicarse con InventarioAdmin
+  const [productosData, setProductosData] = useState(() => {
+    const guardados = localStorage.getItem('inventario-productos');
+    if (guardados){
+      try{
+        return JSON.parse(guardados);
+      }catch (e){
+        console.error("Error al leer storage", e);
+      }
+    }
+    return productosIniciales;
+  })
+
+  //para detectar cambios en localStorage realizados en otra pestaña
+  useEffect(() => {
+    const actualizarProductos = () =>{
+      const guardados = localStorage.getItem('inventario-productos');
+      if (guardados){
+        setProductosData(JSON.parse(guardados));
+      }
+    };
+    window.addEventListener('storage', actualizarProductos);
+    return () => window.removeEventListener('storage', actualizarProductos);
+  }, []);
+
   useEffect(() => {
     if (typeof window !== 'undefined' && window.M) {
       const elemsSidenav = document.querySelectorAll('.sidenav');
@@ -276,7 +301,7 @@ const Productos = () => {
           <h2 className="center-align">Nuestros Productos</h2>
           <section id="productos" className={estilo.seccionProductos}>
             <div className="row">
-              {productosData.map((producto) => (
+              {productosIniciales.map((producto) => (
                 <div key={producto.id} className="col s12 m6 l4">
                   <div className="card hoverable">
                     <div className="card-image">
