@@ -12,7 +12,7 @@ function Nosotros() {
                     <h3 className='texto-main' style={{marginBottom: '20px', fontWeight:'bold'}}>Nosotros</h3>
                     <div className='row' style={{display: 'flex', alignItems:'center', flexWrap:'wrap'}}>
                         <div className='col s12 m5'>
-                            <img src="/images/pasteleria.jpg" alt="" 
+                            <img src="/images/pasteleria.jpg" alt="interiorPasteleria" 
                             className='responsive-img' style={{borderRadius:'8px', boxShadow:'0 4px 8px rgba(0,0,0,0.1)'}}/>
                         </div>
 
