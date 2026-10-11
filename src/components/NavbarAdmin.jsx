@@ -6,6 +6,9 @@ const NavbarAdmin = () => {
   useEffect(() => {
     const sidenav = document.querySelectorAll(".sidenav");
     M.Sidenav.init(sidenav);
+
+    const dropdowns = document.querySelector(".dropdown-trigger");
+    M.Dropdown.init(dropdowns);
   }, []);
 
   return (
@@ -29,25 +32,19 @@ const NavbarAdmin = () => {
                 <li><a href="#">Usuarios</a></li>
                 <li><a href="#">Boletas</a></li>
               </ul>
-
-                <ul id="dropdown1" class="dropdown-content">
-                  <li><a href="#!">Perfil</a></li>
-                  <li><a href="#!">Cerrar Sesión</a></li>
-                </ul>
-                <nav>
-                  <div class="nav-wrapper">
-                    <a href="#!" class="brand-logo">Logo</a>
-                    <ul class="right hide-on-med-and-down">
-                      <li><a href="#">Reportes</a></li>
-                      <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">*poner nombre admin aqui*<i class="material-icons right">arrow_drop_down</i></a></li>
-                    </ul>
-                  </div>
-                </nav>
-
+              <ul class="right hide-on-med-and-down">
+                <li><a href="#">Reportes</a></li>
+                <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Administrador<i class="material-icons right">arrow_drop_down</i></a></li>
+              </ul>
             </div>
           </nav>
         </div>
       </header>
+
+      <ul id="dropdown1" class="dropdown-content">
+        <li><a href="#!">Perfil</a></li>
+        <li><a href="#!">Cerrar Sesión</a></li>
+      </ul>
 
       <ul className="sidenav" id="mobile-demo">
         <li><Link to="/admin">Menú</Link></li>
