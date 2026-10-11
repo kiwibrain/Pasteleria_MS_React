@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import NavbarAdmin from "../../../components/NavbarAdmin";
-import { productosData as productosIniciales } from '../../Productos/Productos';
+import { productosIniciales } from '../../Productos/Productos';
 
 function InventarioAdmin() {
 
@@ -68,6 +68,7 @@ function InventarioAdmin() {
             dificultad: prod.dificultad,
             destacado: prod.destacado
         });
+        setModalOpen(true);
     }
 
     const handleChange = (e) => {
@@ -90,7 +91,7 @@ function InventarioAdmin() {
             setProductos(productos.map(p => p.id === editarId ? {
                 ...p,
                 ...formData,
-                id: formData.precio,
+                id: formData.codigo,
                 precio: precioNum,
                 precio_formateado: precioFormateado,
                 ingredientes: ingredientesArray
@@ -212,7 +213,7 @@ function InventarioAdmin() {
                     }}>
                         <div className="card" style={{ width: '100%', maxWidth: '700px', padding: '30px', maxHeight: '90vh', overflowY: 'auto' }}>
                             <h4 className="pink-text text-darken-1" style={{ marginTop: 0 }}>
-                                {editandoId !== null ? 'Editar Producto' : 'Agregar Nuevo Producto'}
+                                {editarId !== null ? 'Editar Producto' : 'Agregar Nuevo Producto'}
                             </h4>
 
                             <form onSubmit={handleSubmit}>
@@ -363,7 +364,7 @@ function InventarioAdmin() {
                                         type="submit"
                                         className="waves-effect waves-light btn pink darken-1"
                                     >
-                                        {editandoId !== null ? 'Guardar Cambios' : 'Crear Producto'}
+                                        {editarId !== null ? 'Guardar Cambios' : 'Crear Producto'}
                                     </button>
                                 </div>
                             </form>

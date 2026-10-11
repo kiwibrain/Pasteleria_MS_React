@@ -7,6 +7,8 @@ import Productos from "./pages/Productos/Productos";
 import RegistroUsuario from "./pages/RegistroUsuarios/RegistroUsuario";
 import Nosotros from "./pages/Nosotros/Nosotros.jsx";
 import Contacto from "./pages/Contacto/Contacto.jsx";
+import MenuPrincipal from "./pages/Administrador/MenuPrincipal/MenuPrincipal.jsx";
+import InventarioAdmin from "./pages/Administrador/Inventario/InventarioAdmin.jsx";
 
 export const routes = createBrowserRouter([
   {
@@ -40,5 +42,13 @@ export const routes = createBrowserRouter([
   {
     path: "/contacto",
     element: <Contacto/>,
+  },
+  {
+    path: "/admin",
+    element: <MenuPrincipal/>
+  },
+  {
+    path: "/admin/inventario",
+    element: <InventarioAdmin/>
   }
 ]);

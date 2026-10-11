@@ -6,6 +6,8 @@ import Alerta from '../../components/Alerta';
 
 function InicioSesion() {
 
+    const navigate = useNavigate();
+
     //Variables sueltas
     const regexEmail = new RegExp(".*@(gmail.com|profesor.duoc.cl|duoc.cl)");
     const arrayUsuarios = JSON.parse(localStorage.getItem("Usuarios")) || [];
@@ -22,16 +24,28 @@ function InicioSesion() {
 
     //Funciones
     function validarCampos(){
+        event.preventDefault();
+
         let mensajesErrores = [];
         let nombreValidado = "";
+        let esAdmin = false;
+
         if( inputEmail.trim()=="" ) { mensajesErrores.push(`Email vacio`); }
         if( !regexEmail.test(inputEmail) ) { mensajesErrores.push(`Formato email incorrecto`); }
         if( inputPass.trim()=="" ) { mensajesErrores.push(`Contraseña vacia`); }
-        for( let regUsuario of arrayUsuarios ){
-            if( inputEmail===regUsuario.email && inputPass===regUsuario.password ) {
-                console.log('Validado: ' + regUsuario.email + ' - ' + regUsuario.nombre);
-                localStorage.setItem("UsuarioActivo", JSON.stringify(regUsuario));
-                nombreValidado = regUsuario.nombre;
+
+        if (inputEmail === "admin@duoc.cl" && inputPass === "admin1234"){
+            const adminUser = {email: "admin@duoc.cl", nombre: "Administrador", rol: "admin"};
+            localStorage.setItem("UsuarioActivo", JSON.stringify(adminUser));
+            nombreValidado = "Administrador";
+            esAdmin = true;
+        } else {
+            for( let regUsuario of arrayUsuarios ){
+                if( inputEmail===regUsuario.email && inputPass===regUsuario.password ) {
+                    console.log('Validado: ' + regUsuario.email + ' - ' + regUsuario.nombre);
+                    localStorage.setItem("UsuarioActivo", JSON.stringify(regUsuario));
+                    nombreValidado = regUsuario.nombre;
+                }
             }
         }
         if( JSON.parse(localStorage.getItem("UsuarioActivo"))==="" ) { mensajesErrores.push(`Credenciales no verificadas`); }
@@ -39,8 +53,16 @@ function InicioSesion() {
         setAlertas( (mensajesErrores.length>0 ? mensajesErrores : [`Inicio sesión correcto: ${usuarioActivo}`]) )
         setTipoAlerta( (mensajesErrores.length>0 ? `error` : `success`) )
         if (window.M) window.M.toast({ html: ( nombreValidado!=="" ? `Saludos ${nombreValidado}` : `Acceso negado` ) });
+
+        if (mensajesErrores.length === 0 && esAdmin){
+            setTimeout(() => {
+                navigate('/admin');
+            }, 1000);
+        }
+
     }
 
+    
     // function testMostrarUsuarios(){
     //     console.log(`arrayUsuarios[0].nombre:: ${typeof( arrayUsuarios[0].nombre )} - ${ arrayUsuarios[0].nombre }`);
     // }

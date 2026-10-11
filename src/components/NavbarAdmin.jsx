@@ -24,8 +24,8 @@ const NavbarAdmin = () => {
                     <img src="/images/pasteleria_logo_transparent.png" alt="Logo" />
                   </div>
                 </li>
-                <li><Link to="#">Menú</Link></li>
-                <li><Link to="#">Inventario</Link></li>
+                <li><Link to="/admin">Menú</Link></li>
+                <li><Link to="/admin/inventario">Inventario</Link></li>
                 <li><a href="#">Usuarios</a></li>
                 <li><a href="#">Boletas</a></li>
               </ul>
@@ -50,10 +50,10 @@ const NavbarAdmin = () => {
       </header>
 
       <ul className="sidenav" id="mobile-demo">
-        <li><Link to="">Menú</Link></li>
-        <li><Link to="/productos">Inventario</Link></li>
-        <li><a href="/nosotros">Usuarios</a></li>
-        <li><a href="/contacto">Boletas</a></li>
+        <li><Link to="/admin">Menú</Link></li>
+        <li><Link to="/admin/inventario">Inventario</Link></li>
+        <li><a href="#">Usuarios</a></li>
+        <li><a href="#">Boletas</a></li>
         <li class="divider"></li>
         <li><Link to="/carrito">Perfil</Link></li>
         <li><Link to="/inicio-sesion">Cerrar Sesión</Link></li>

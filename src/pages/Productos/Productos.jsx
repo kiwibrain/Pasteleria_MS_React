@@ -4,7 +4,7 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import estilo from './Productos.module.css';
 
-const productosIniciales = [
+export const productosIniciales = [
   {
     id: "TC001",
     codigo: "TC001",
