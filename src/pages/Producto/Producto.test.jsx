@@ -20,6 +20,6 @@ test('Verificar que el botón diga "Añadir al carrito"', () => {
     </MemoryRouter>
   );
 
-  const botonAñadir = screen.getByRole('button', { name: 'Comprar Ahora' });
+  const botonAñadir = screen.getByText('Añadir al carrito');
   expect(botonAñadir).toBeInTheDocument();
 });
