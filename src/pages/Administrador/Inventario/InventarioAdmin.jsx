@@ -135,8 +135,8 @@ function InventarioAdmin() {
                     </div>
                 </div>
 
-                <div className="card" style={{ padding: '20px' }}>
-                    <table className="striped highlight responsive-table">
+                <div className="card" style={{ padding: '20px', overflowX: 'auto' }}>
+                    <table className="striped highlight" style= {{width: '100%', tableLayout: 'fixed'}}>
                         <thead>
                             <tr>
                                 <th>Código</th>
@@ -155,10 +155,22 @@ function InventarioAdmin() {
                                     <td>
                                         <img
                                             src={prod.imagen}
-                                            alt={prod.titulo}
-                                            style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px' }}
-                                            onError={(e) => { e.target.src = 'images/placeholder.webp'; }}
+                                            alt=""
+                                            style={{
+                                                width: '45px', height: '45px',
+                                                minWidth: '45px', minHeight: '45px',
+                                                objectFit: 'cover', borderRadius: '4px',
+                                                backgroundColor: '#e0e0e0', display: 'block',
+                                                border: 'none', outline: 'none'
+                                            }}
+                                            onError={(e) => {
+                                                const fallback = 'https://via.placeholder.com/45?text=Sin+Foto';
+                                                if (e.target !== fallback){
+                                                    e.target.src = fallback;
+                                                }
+                                            }}
                                         />
+                                    
                                     </td>
                                     <td><strong>{prod.titulo}</strong></td>
                                     <td>{prod.categoria}</td>
