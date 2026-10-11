@@ -9,12 +9,8 @@ const NavbarAdmin = () => {
     const sidenavElems = document.querySelectorAll(".sidenav");
     const sidenavInstances = M.Sidenav.init(sidenavElems);
 
-    const dropdownElems = document.querySelectorAll(".dropdown-trigger");
-    const dropdownInstances = M.Sidenav.init(dropdownElems, {coverTrigger: false});
-
     return () => {
       sidenavInstances.forEach((instance) => instance.destroy());
-      dropdownInstances.forEach((instance) => instance.destroy());
     };
   }, []);
 
@@ -48,26 +44,27 @@ const NavbarAdmin = () => {
               </ul>
               <ul className="right hide-on-med-and-down">
                 <li><a href="#">Reportes</a></li>
-                <li><a className="dropdown-trigger" href="#!" data-target="dropdown1">Administrador<i className="material-icons right">arrow_drop_down</i></a></li>
+                <li>
+                  <span style={{padding: "0 15px", fontWeight: "bold"}}>Administrador</span>
+                </li>
+                <li>
+                  <button onClick={handleCerrarSesion} className="btn waves-effect waves-light red darken-2" style={{marginRight: "15px"}}>
+                    Cerrar Sesión
+                  </button>
+                </li>
               </ul>
             </div>
           </nav>
         </div>
       </header>
 
-      <ul id="dropdown1" className="dropdown-content">
-        <li><a href="#!">Perfil</a></li>
-        <li><a href="#!" onClick={handleCerrarSesion}>Cerrar Sesión</a></li>
-      </ul>
-
       <ul className="sidenav" id="mobile-demo">
         <li><Link to="/admin">Menú</Link></li>
         <li><Link to="/admin/inventario">Inventario</Link></li>
-        <li><a href="#">Usuarios</a></li>
-        <li><a href="#">Boletas</a></li>
+        <li><a href="#!">Usuarios</a></li>
+        <li><a href="#!">Boletas</a></li>
         <li className="divider"></li>
-        <li><Link to="/carrito">Perfil</Link></li>
-        <li><Link to="/inicio-sesion">Cerrar Sesión</Link></li>
+        <li><a href="#!" onClick={handleCerrarSesion}>Cerrar Sesión</a></li>
       </ul>
     </>
   );
