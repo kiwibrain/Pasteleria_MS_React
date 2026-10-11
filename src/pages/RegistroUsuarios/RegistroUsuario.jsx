@@ -83,6 +83,8 @@ const RegistroUsuario = () => {
       // Opcional: Mantener el Toast de Materialize
       if (window.M) window.M.toast({ html: "Registrado usuario " + formData.nombre });
       setEsValidoRegistro(true);
+      arrayUsuarios.push(formData);
+      localStorage.setItem("Usuarios", JSON.stringify(arrayUsuarios));
       
       // Aquí podrías limpiar el formulario si lo deseas:
       // setFormData({ nombre: '', apellido: '', edad: '', email: '', password: '', passConfirm: '' });
@@ -200,7 +202,7 @@ const RegistroUsuario = () => {
                     Validar
                   </button>
                 </div>
-                <div className="col s12 m12 contenedor-btn" style={{ marginTop: '20px' }}>
+                <div className="col s12 m12 contenedor-btn" style={{ marginTop: '20px' }} hidden="true">
                   <button type="button" className="btn btn btn-info"
                         onClick={registrarUsuarioLocalStorage} disabled={!esValidoRegistro}>
                     Registrar

@@ -4,11 +4,13 @@ import M from "materialize-css";
 
 const Navbar = () => {
 
-  const [elementoUsuario, setElementoUsuario] = useState( JSON.parse(localStorage.getItem("UsuarioActivo")).nombre || "");
+  
+  const [nombreUsuario, setNombreUsuario] = useState( JSON.parse(localStorage.getItem("UsuarioActivo"))==undefined ? "" : JSON.parse(localStorage.getItem("UsuarioActivo")).nombre);
+  console.log(`nombreUsuario:: ${typeof(nombreUsuario)} - ${nombreUsuario}`);
 
   function cerrarSesion(){
     localStorage.setItem("UsuarioActivo", JSON.stringify(""));
-    setElementoUsuario("");
+    setNombreUsuario("");
   }
 
   useEffect(() => {
@@ -40,10 +42,10 @@ const Navbar = () => {
 
               <ul className="right hide-on-med-and-down">
                 <li><Link to="/carrito">Carrito</Link></li>
-                <li hidden={ elementoUsuario!=="" }><Link to="/inicio-sesion">Iniciar Sesión</Link></li>
-                <li hidden={ elementoUsuario!=="" }><Link to="/registro">Registrarse</Link></li>
-                <li hidden={ elementoUsuario==="" }>--Aqui deberia ir nombre usuario--</li>
-                <li hidden={ elementoUsuario==="" }> <button className="btn btn-info" onClick={cerrarSesion}>Cerrar Sesion</button> </li>
+                <li hidden={ !(nombreUsuario=="" || nombreUsuario==undefined) }><Link to="/inicio-sesion">Iniciar Sesión</Link></li>
+                <li hidden={ !(nombreUsuario=="" || nombreUsuario==undefined) }><Link to="/registro">Registrarse</Link></li>
+                <li hidden={ (nombreUsuario=="" || nombreUsuario==undefined) }>{nombreUsuario}</li>
+                <li hidden={ (nombreUsuario=="" || nombreUsuario==undefined) }> <button className="btn btn-info" onClick={cerrarSesion}>Cerrar Sesion</button> </li>
                 <li>
                   <form className="form-search">
                     <div className="input-field">
