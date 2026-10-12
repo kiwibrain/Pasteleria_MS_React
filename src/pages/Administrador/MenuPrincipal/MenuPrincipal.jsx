@@ -1,7 +1,20 @@
 import { Link } from "react-router-dom";
 import NavbarAdmin from "../../../components/NavbarAdmin";
+import { useEffect, useState } from "react";
+import styles from '../../Administrador/MenuPrincipal/MenuPrincipal.module.css';
+
 
 function MenuAdmin() {
+
+    const [cantProd, setCantProd] = useState(0);
+
+    //para obtener cantidad de productos y mostrar en panel de admin
+    useEffect(() => {
+        const prodGuardados = JSON.parse(localStorage.getItem("inventario-productos")) || [];
+        setCantProd(prodGuardados.length);
+    }, []);
+
+
     return (
         <>
             <NavbarAdmin />
@@ -11,29 +24,51 @@ function MenuAdmin() {
 
                 <div className="row" style={{ marginTop: '40px' }}>
                     <div className="col s12 m4">
-                        <Link to="/admin/inventario"></Link>
-                        <div className="card blue-grey darken-1">
-                            <div className="card-content white-text">
-                                <span className="card-title">Ventas del Día</span>
-                                <h2>$125.000</h2>
+                        <Link to="/admin/inventario" style={{ display: 'block' }}>
+                            <div className={`card blue-grey darken-1 hoverable ${styles.tarjetaAdmin}`}>
+                                <div className="card-content white-text center-align" style={{ padding: '30px 10px' }}>
+                                    <i className="material-icons large">inventory_2</i>
+                                    <span className="card-title" style={{ marginTop: '10px', fontWeight: 'bold' }}>Productos en Inventario</span>
+                                    <h2 style={{ margin: '10px 0 0 0' }}>{cantProd}</h2>
+                                </div>
                             </div>
-                        </div>
+                        </Link>
                     </div>
                     <div className="col s12 m4">
-                        <div className="card pink darken-1">
-                            <div className="card-content white-text">
-                                <span className="card-title">Pedidos Pendientes</span>
-                                <h2>12</h2>
+                        <Link to="/admin/usuarios" style={{ display: 'block' }}>
+                            <div className={`card pink darken-1 hoverable ${styles.tarjetaAdmin}`}>
+                                <div className="card-content white-text center-align" style={{ padding: '30px 10px' }}>
+                                    <i className="material-icons large">group</i>
+                                    <span className="card-title" style={{ marginTop: '10px', fontWeight: 'bold' }}>Clientes Registrados</span>
+                                    <h2 style={{ margin: '10px 0 0 0' }}>12</h2>
+                                </div>
+
                             </div>
-                        </div>
+                        </Link>
                     </div>
                     <div className="col s12 m4">
-                        <div className="card teal darken-1">
-                            <div className="card-content white-text">
-                                <span className="card-title">Nuevos Clientes</span>
-                                <h2>5</h2>
+                        <Link to="/admin/boletas" style={{ display: 'block' }}>
+                            <div className={`card teal darken-1 hoverable ${styles.tarjetaAdmin}`}>
+                                <div className="card-content white-text center-align" style={{ padding: '30px 10px' }}>
+                                    <i className="material-icons large">receipt_long</i>
+                                    <span className="card-title" style={{ marginTop: '10px', fontWeight: 'bold' }}>Pedidos / Boletas</span>
+                                    <h5 style={{ margin: '10px 0 0 0' }}>5</h5>
+                                </div>
+
                             </div>
-                        </div>
+                        </Link>
+                    </div>
+                    <div className="col s12 m4">
+                        <Link to="/admin/reportes" style={{ display: 'block' }}>
+                            <div className={`card indigo darken-1 hoverable ${styles.tarjetaAdmin}`}>
+                                <div className="card-content white-text center-align" style={{ padding: '30px 10px' }}>
+                                    <i className="material-icons large">assessment</i>
+                                    <span className="card-title" style={{ marginTop: '10px', fontWeight: 'bold' }}>Reportes Mensuales</span>
+                                    <h5 style={{ margin: '10px 0 0 0' }}>45</h5>
+                                </div>
+
+                            </div>
+                        </Link>
                     </div>
                 </div>
             </main>

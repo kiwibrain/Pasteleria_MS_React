@@ -1,0 +1,11 @@
+.tarjeta-admin{
+    transition: transform 0.3s ease, box-shadow 0.3s ease filter 0.3s ease !important;
+    border-radius: 10px;
+}
+
+.tarjeta-admin:hover{
+    transform: translateY(-15px);
+    filter: brightness(1.15);
+    cursor: pointer;
+    
+}
