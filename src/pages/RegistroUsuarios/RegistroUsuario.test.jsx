@@ -12,6 +12,16 @@ test('Validación de correos permitidos', ()=>{
 
     const regexEmail = new RegExp(".*@(gmail.com|profesor.duoc.cl|duoc.cl)");
     expect(regexEmail.test('juanin@gmail.com')).toBe(true);
+});
+
+test('Validación de correos NO permitidos', ()=>{
+    render(
+        <MemoryRouter>
+            <RegistroUsuario/>
+        </MemoryRouter>
+    );
+
+    const regexEmail = new RegExp(".*@(gmail.com|profesor.duoc.cl|duoc.cl)");
     expect(regexEmail.test('bodoque@yahoo.com')).toBe(true);
     
 });
