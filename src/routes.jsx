@@ -9,6 +9,9 @@ import Nosotros from "./pages/Nosotros/Nosotros.jsx";
 import Contacto from "./pages/Contacto/Contacto.jsx";
 import MenuPrincipal from "./pages/Administrador/MenuPrincipal/MenuPrincipal.jsx";
 import InventarioAdmin from "./pages/Administrador/Inventario/InventarioAdmin.jsx";
+import Reportes from "./pages/Administrador/Reportes/Reportes.jsx";
+import Usuarios from "./pages/Administrador/Usuarios/Usuarios.jsx";
+import Boletas from "./pages/Administrador/Boletas/Boletas.jsx";
 
 export const routes = createBrowserRouter([
   {
@@ -50,5 +53,17 @@ export const routes = createBrowserRouter([
   {
     path: "/admin/inventario",
     element: <InventarioAdmin/>
+  },
+  {
+    path: "/admin/reportes",
+    element: <Reportes/>
+  },
+  {
+    path: "/admin/usuarios",
+    element: <Usuarios/>
+  },
+  {
+    path: "/admin/boletas",
+    element: <Boletas/>
   }
 ]);

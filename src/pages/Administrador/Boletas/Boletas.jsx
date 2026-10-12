@@ -1,8 +1,7 @@
 import NavbarAdmin from "../../../components/NavbarAdmin";
 
-
-function Boletas(){
-    return(
+function Boletas() {
+    return (
         <>
             <NavbarAdmin/>
             <main>

@@ -39,11 +39,11 @@ const NavbarAdmin = () => {
                 </li>
                 <li><Link to="/admin">Menú</Link></li>
                 <li><Link to="/admin/inventario">Inventario</Link></li>
-                <li><a href="#">Usuarios</a></li>
-                <li><a href="#">Boletas</a></li>
+                <li><a href="/admin/usuarios">Usuarios</a></li>
+                <li><a href="/admin/boletas">Boletas</a></li>
               </ul>
               <ul className="right hide-on-med-and-down">
-                <li><a href="#">Reportes</a></li>
+                <li><a href="/admin/reportes">Reportes</a></li>
                 <li>
                   <span style={{padding: "0 15px", fontWeight: "bold"}}>Administrador</span>
                 </li>
@@ -61,8 +61,9 @@ const NavbarAdmin = () => {
       <ul className="sidenav" id="mobile-demo">
         <li><Link to="/admin">Menú</Link></li>
         <li><Link to="/admin/inventario">Inventario</Link></li>
-        <li><a href="#!">Usuarios</a></li>
-        <li><a href="#!">Boletas</a></li>
+        <li><a href="/admin/usuarios">Usuarios</a></li>
+        <li><a href="/admin/boletas">Boletas</a></li>
+        <li><a href="/admin/boletas">Reportes</a></li>
         <li className="divider"></li>
         <li><a href="#!" onClick={handleCerrarSesion}>Cerrar Sesión</a></li>
       </ul>
