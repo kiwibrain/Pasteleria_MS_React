@@ -3,7 +3,7 @@ import { MemoryRouter } from "react-router-dom";
 import { expect, test } from "vitest";
 import Navbar from "./Navbar";
 
-test('1. Renderiza los enlaces principales de navegación', () => {
+test('Prueba de renderizado de los enlaces principales de navegación', () => {
     render(
       <MemoryRouter>
         <Navbar />
