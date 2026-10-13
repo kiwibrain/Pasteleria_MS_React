@@ -2,7 +2,6 @@ import { useState } from "react";
 import NavbarAdmin from "../../../components/NavbarAdmin";
 
 function Usuarios() {
-    // Datos de prueba actualizados con nombres, apellidos, edad y email
     const [usuarios] = useState([
         { 
             id: 1, 
