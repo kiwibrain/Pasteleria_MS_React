@@ -14,3 +14,13 @@
     cursor: pointer;
     
 }
+.filaFlex {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: stretch !important;
+}
+
+.filaFlex::before,
+.filaFlex::after {
+    display: none !important;
+}
