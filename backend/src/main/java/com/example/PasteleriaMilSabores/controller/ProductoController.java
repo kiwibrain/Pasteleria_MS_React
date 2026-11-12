@@ -1,6 +1,8 @@
 package com.example.PasteleriaMilSabores.controller;
 
 import java.util.List;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/producto")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class ProductoController {
 
     private final ProductoService productoService;
