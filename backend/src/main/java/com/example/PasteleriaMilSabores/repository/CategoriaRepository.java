@@ -1,4 +1,4 @@
-package com.example.PasteleriaMilSabores.repositories;
+package com.example.PasteleriaMilSabores.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
