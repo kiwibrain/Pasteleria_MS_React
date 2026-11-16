@@ -3,7 +3,8 @@ package com.example.PasteleriaMilSabores.service;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import com.example.PasteleriaMilSabores.models.entities.Producto;
-import com.example.PasteleriaMilSabores.repositories.ProductoRepository;
+import com.example.PasteleriaMilSabores.repository.ProductoRepository;
+
 import lombok.RequiredArgsConstructor;
 
 @Service

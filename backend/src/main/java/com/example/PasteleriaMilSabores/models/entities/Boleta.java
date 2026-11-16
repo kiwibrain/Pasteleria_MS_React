@@ -26,20 +26,20 @@ public class Boleta {
     private Long idBoleta;
 
     @Column(nullable = false, unique = true, length = 20)
-    private String codigoBoleta; // Almacena el código visible "BOL-01", "BOL-02", etc.
+    private String codigoBoleta; 
 
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)
-    private Usuario usuario; // Reemplaza al String "cliente" conectándolo con la entidad Usuario
+    private Usuario usuario; 
 
     @Column(nullable = false)
-    private LocalDateTime fechaHora; // Para almacenar la fecha y hora ("2026-03-25 14:33")
+    private LocalDateTime fechaHora; 
 
     @Column(nullable = false)
-    private Integer total; // Se guarda como número entero sin formatear (ej: 45000)
+    private Integer total; 
 
     @Column(nullable = false)
-    private String estado; // "Completado", "Pendiente", "Cancelado"
+    private String estado;
 
     @OneToMany(mappedBy = "boleta", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DetalleBoleta> detalles = new ArrayList<>();

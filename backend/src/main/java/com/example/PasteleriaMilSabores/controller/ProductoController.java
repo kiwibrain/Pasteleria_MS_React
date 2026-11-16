@@ -12,7 +12,7 @@ import com.example.PasteleriaMilSabores.service.ProductoService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/producto")
+@RequestMapping("/api/producto")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
 public class ProductoController {
