@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-PasteleriaMilSaboresApplication<PasteleriaMilSabores>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.example.PasteleriaMilSabores.PasteleriaMilSaboresApplication",
+            "projectName": "PasteleriaMilSabores",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

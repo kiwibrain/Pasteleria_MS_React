@@ -26,7 +26,12 @@ public class AuthService {
         // Encriptamos la contraseña antes de guardarla en la base de datos
         request.setPassword(passwordEncoder.encode(request.getPassword()));
         
-        // El rol "CLIENTE" y estado "ACTIVO" ya deberían estar por defecto o venir en el request
+        // Aseguramos valores por defecto para nuevos registros desde el frontend
+        request.setRol("CLIENTE");
+        if (request.getEstado() == null || request.getEstado().isBlank()) {
+            request.setEstado("ACTIVO");
+        }
+        
         usuarioRepository.save(request);
         return true;
     }
@@ -40,9 +45,16 @@ public class AuthService {
             return null;
         }
         
-        // Generamos el token pasando el email (o podrías pasar el rol también si lo configuras)
+        // Generamos el token pasando el email
         String token = jwtService.generarToken(usuario.getEmail());
         
-        return new AuthResponse(token, "Bearer", jwtService.getExpiracionSegundos());
+        return new AuthResponse(
+            token, 
+            "Bearer", 
+            jwtService.getExpiracionSegundos(),
+            usuario.getEmail(),
+            usuario.getNombre(),
+            usuario.getRol()
+        );
     }
 }
