@@ -35,7 +35,7 @@ public class SecurityConfig {
                 // publicos: solo login y registro
                 .requestMatchers(HttpMethod.POST, "/api/auth/login", "/api/auth/registro").permitAll()
         
-                .requestMatchers(HttpMethod.GET, "/producto").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/producto/**").permitAll()
                 .anyRequest().authenticated()
             )
             .exceptionHandling(e -> e.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
