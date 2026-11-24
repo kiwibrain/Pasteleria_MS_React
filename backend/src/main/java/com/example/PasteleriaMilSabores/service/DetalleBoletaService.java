@@ -16,7 +16,6 @@ public class DetalleBoletaService {
         return detalleBoletaRepo.findAll();
     }
 
-    // TODO: El argumento solo es aceptable como "Long", diferente a como esta el Service copiado. Observar posibles problemas
     public DetalleBoleta obtenerDetalleBoletaPorId(long id){
         return detalleBoletaRepo.findById(id).orElse(null);
     }

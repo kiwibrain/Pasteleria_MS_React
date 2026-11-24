@@ -1,8 +1,97 @@
 
-####
-GET http://localhost:8080/vehiculo HTTP/1.1
-Content-Type: application/json
+@token = eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbkBkdW9jLmNsIiwiaWF0IjoxNzk1NTIzMDgzLCJleHAiOjE3OTU1MjY2ODN9.xiShEZZ7ignu-gw1ABsCV8mnyUh9KeiCh5ROKsllY1kZO0rRhLDm0ZxYqhQyM1Rq
 
-### obtener todos los vehiculos
-GET http://localhost:8080/vehiculo HTTP/1.1
-Content-Type: application/json
+### Registrar usuario
+POST http://localhost:8080/api/auth/registro HTTP/1.1
+content-type: application/json
+
+{
+    "nombre" : "usuario1",
+    "apellido" : "usuarioApellido1",
+    "edad" : 22,
+    "email": "usuario1@duoc.cl",
+    "password": "usuario12345",
+    "passConfirm" : "usuario12345"
+
+    //nombre, apellido, edad, email, password, passConfirm
+}
+
+### Login (devuelve el token)
+POST http://localhost:8080/api/auth/login HTTP/1.1
+content-type: application/json
+
+{
+    "email": "admin@duoc.cl",
+    "password": "admin1234"
+}
+
+
+
+### ===== CATEGORIA =====
+
+### Listar categorias
+GET http://localhost:8080/api/categorias HTTP/1.1
+Authorization: Bearer {{token}}
+
+### Obtener categoria por id
+GET http://localhost:8080/api/categorias/9 HTTP/1.1
+Authorization: Bearer {{token}}
+
+### Crear categoria
+POST http://localhost:8080/api/categorias HTTP/1.1
+Authorization: Bearer {{token}}
+content-type: application/json
+
+{
+    "nombre_categoria": "Torta vegana"
+}
+
+### Actualizar categoria
+PUT http://localhost:8080/api/categorias/9 HTTP/1.1
+Authorization: Bearer {{token}}
+content-type: application/json
+
+{
+    "nombre_categoria": "Torta vegana nivel 5"
+}
+
+### Eliminar categoria
+DELETE http://localhost:8080/api/categorias/1 HTTP/1.1
+Authorization: Bearer {{token}}
+
+
+### ===== PRODUCTOS =====
+
+### Listar productos
+GET http://localhost:8080/api/producto HTTP/1.1
+Authorization: Bearer {{token}}
+
+### Obtener producto por id
+GET http://localhost:8080/api/producto/1 HTTP/1.1
+Authorization: Bearer {{token}}
+
+### Crear producto
+POST http://localhost:8080/api/producto HTTP/1.1
+Authorization: Bearer {{token}}
+content-type: application/json
+
+{
+    "marca": "Toyota",
+    "color": "Rojo",
+    "categoria": { "idCategoria": 1 }
+}
+
+### Actualizar vehiculo
+PUT http://localhost:8080/api/producto/1 HTTP/1.1
+Authorization: Bearer {{token}}
+content-type: application/json
+
+{
+    "marca": "Toyota",
+    "color": "Azul",
+    "categoria": { "idCategoria": 1 }
+}
+
+### Eliminar vehiculo
+DELETE http://localhost:8080/api/producto/1 HTTP/1.1
+Authorization: Bearer {{token}}
