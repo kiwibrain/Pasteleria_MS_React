@@ -3,10 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import Alerta from '../../components/Alerta';
+import { login } from '../../APIs/authAPI';
+import { guardarToken } from '../../auth/auth';
 
 function InicioSesion() {
 
     const navigate = useNavigate();
+
+    //TODO: Evaluar si usar inputEmail y inputPass, o usar un solo objeto para ambos
+    //TODO: Configurar la funcionalidad para login. Ahora que están las API hechas
 
     //Variables sueltas
     const regexEmail = new RegExp(".*@(gmail.com|profesor.duoc.cl|duoc.cl)");
@@ -17,12 +22,20 @@ function InicioSesion() {
     //Objetos Hook useState
     const [inputEmail, setInputEmail] = useState("");
     const [inputPass, setInputPass] = useState("");
+    const [userAuthData, setUserAuthData] = useState( {inputEmail:"", inputPass:"", rol:""} );
     // const [listaUsuarios, setListaUsuarios] = useState( JSON.parse(localStorage.getItem("Usuarios")) || [] );
 
     const [alertas, setAlertas] = useState([]);
     const [tipoAlerta, setTipoAlerta] = useState('');
 
+
     //Funciones
+
+    function handleUserEvent (e) {
+        const {atribute, value} = e.target;
+        setUserAuthData( {...userAuthData, [atribute]:value} );
+    };
+
     function validarCampos(){
         event.preventDefault();
 
@@ -62,6 +75,15 @@ function InicioSesion() {
 
     }
 
+    async function inicioSesion(e) {
+        e.preventDefault();
+        try{
+            const respuestaHTTP = await login( userAuthData.inputEmail, userAuthData.inputPass );
+            guardarToken(respuestaHTTP.token);
+            console.log(`respuestaHTTP:: ${typeof(respuestaHTTP)} - ${respuestaHTTP}`);
+        }catch{ console.log("Error al iniciar sesion."); }
+    }
+
     
     // function testMostrarUsuarios(){
     //     console.log(`arrayUsuarios[0].nombre:: ${typeof( arrayUsuarios[0].nombre )} - ${ arrayUsuarios[0].nombre }`);
@@ -86,7 +108,7 @@ function InicioSesion() {
                                     <div className="contenedor-input">
                                         <label for="txtEmail">Email:</label>
                                         <input id="txtEmail" className="form-control" type="text" placeholder="Ingrese su email"
-                                            onChange={ (event)=>{setInputEmail(event.target.value)} } />
+                                            onChange={handleUserEvent} />
                                     </div>
                                 </div>
 
@@ -94,12 +116,13 @@ function InicioSesion() {
                                     <div className="contenedor-input">
                                         <label for="txtPassword">Contraseña:</label>
                                         <input id="txtPassword" className="form-control" type="password" placeholder="Ingrese su contraseña"
-                                            onChange={ (event)=>{setInputPass(event.target.value)} } />
+                                            onChange={handleUserEvent} />
                                     </div>
                                 </div>
 
                                 <div className="col s12 m6 contenedor-btn">
-                                    <button type="submit" className="btn btn-success" onClick={validarCampos}>Ingresar</button>
+                                    {/* <button type="submit" className="btn btn-success" onClick={validarCampos}>Ingresar</button> */}
+                                    <button type="submit" className="btn btn-success" onClick={inicioSesion}>Ingresar</button>
                                 </div>
 
                             </div>
